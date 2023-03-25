@@ -20,3 +20,10 @@ int primo_anterior(int n, int primo){
         }
     }
 }
+
+/*
+    a função recusiva dos primos começa com o contador igual a 0, e o numero recebido,
+    com duas condições, se o n for igual a 2 ,
+    ele vai retorna 2 já que é o primo minimo, senão ele vai rodar um laço para para saber se aquele numero é primo ou não
+    caso seja ele já retorna em seguida, caso não seja o número diminui um e retorna para função
+*/

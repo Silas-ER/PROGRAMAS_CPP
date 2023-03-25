@@ -20,3 +20,9 @@ int main(){
     cout << "O valor da serie harmonica eh de " << serie_harmonica(num, sum);
     return 0;
 }
+
+/*
+    A questão 3 recebe o valor que se deseja saber da serie harmônica, e retorna com a precisão de dois dígitos
+    a soma dos valores da série harmônica através da função recursiva começando do numero escolhido e diminuindo 
+    o valor a cada chamada e quando o valor chega a zero retorna a soma total.  
+*/
