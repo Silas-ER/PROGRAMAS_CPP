@@ -61,51 +61,106 @@ class Aluno{
     }
 };
 
-class Turma{
+class Turma {
   private:
     int capacidade;
     int vagas;
     vector<Aluno*> alunos;
+    string campoOrdenacao;
 
   public:
-    //constructor
-    Turma(int cap){
-      this -> capacidade = cap;
-      this -> vagas = cap;
+    // Constructor
+    Turma(int cap) {
+      this->capacidade = cap;
+      this->vagas = cap;
     }
 
-    //destructor
-    ~Turma(){}
-    
-    //getters
-    int getCapacidade(){
+    // Destructor
+    ~Turma() {}
+
+    // Getters
+    int getCapacidade() {
       return capacidade;
     } 
-    int getVagas(){
+    int getVagas() {
       return vagas;
     }
-    //setters 
-    void setCapacidade(int cap){
-      this -> capacidade = cap;
+
+    // Setters 
+    void setCapacidade(int cap) {
+      this->capacidade = cap;
     }
-    void setVagas(int cap){
-      this -> vagas = cap;
+    void setVagas(int cap) {
+      this->vagas = cap;
     }
     void setCampoOrdenacao(string campo) {
-        campoOrdenacao = campo;
+      campoOrdenacao = campo;
     }
-    //adicionar alunos
-    bool addAluno(Aluno * aluno) {
-        if (vagas == 0) {
-            return false;
+
+    // Adicionar alunos
+    bool addAluno(Aluno* aluno) {
+      if (vagas == 0) {
+        return false;
+      }
+
+      alunos.push_back(aluno);
+      vagas--;
+
+      return true;
+    }
+
+    // Selection Sort por nome
+    void selectionSortNome(vector<Aluno*>& alunos) {
+      int n = alunos.size();
+      for (int i = 0; i < n-1; i++) {
+        int minIndex = i;
+        for (int j = i+1; j < n; j++) {
+          if (alunos[j]->getNome() < alunos[minIndex]->getNome()) {
+            minIndex = j;
+          }
         }
-
-        alunos.push_back(aluno);
-        vagas--;
-
-        return true;
+        swap(alunos[minIndex], alunos[i]);
+      }
     }
+
+    // Selection Sort por matrícula
+    void selectionSortMatricula(vector<Aluno*>& alunos) {
+      int n = alunos.size();
+      for (int i = 0; i < n-1; i++) {
+        int minIndex = i;
+        for (int j = i+1; j < n; j++) {
+          if (alunos[j]->getMatricula() < alunos[minIndex]->getMatricula()) {
+            minIndex = j;
+          }
+        }
+        swap(alunos[minIndex], alunos[i]);
+      }
+    }
+
+    // Selection Sort por média
+    void selectionSortNota(vector<Aluno*>& alunos) {
+      int n = alunos.size();
+      for (int i = 0; i < n-1; i++) {
+        int minIndex = i;
+        for (int j = i+1; j < n; j++) {
+          if (alunos[j]->media() < alunos[minIndex]->media()) {
+            minIndex = j;
+          }
+        }
+        swap(alunos[minIndex], alunos[i]);
+      }
+    }
+
+    // Imprimir alunos ordenados
     void imprimeAlunos() {
+      if (campoOrdenacao == "nome") {
+        selectionSortNome(alunos);
+      } else if (campoOrdenacao == "matricula") {
+        selectionSortMatricula(alunos);
+      } else if (campoOrdenacao == "nota") {
+        selectionSortNota(alunos);
+      }
+
         for (int i = 0; i < capacidade; i++) {
             if (alunos[i] != nullptr) {
                 cout << "Matrícula: " << alunos[i]->getMatricula() << endl;
@@ -117,6 +172,7 @@ class Turma{
         }
     }
 };
+
 
 int main(){
   string escolha; 
@@ -137,6 +193,9 @@ int main(){
   lp1.addAluno(Rodrigues);
   lp1.addAluno(Dos);
   lp1.addAluno(Santos);
+
+  //escolha de ordenação 
+  lp1.setCampoOrdenacao("nome");
   
   //imprimir alunos na sequencia de entrada
   lp1.imprimeAlunos();
